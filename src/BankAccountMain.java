@@ -148,3 +148,8 @@ public class BankAccountMain
 //Switch(transcaction)
 //case(withdraw)
 //case(deposit)
+
+//Try Method
+//Catch Error
+
+//Is Numeric
