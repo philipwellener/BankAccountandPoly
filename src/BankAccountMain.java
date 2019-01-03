@@ -36,9 +36,6 @@ public class BankAccountMain
 			System.out.println("Would you like to add an account, make a transaction, or terminate the program? Write: 'Add', 'Make', or 'Terminate'.");
 			String ans = in.nextLine();
 			
-			System.out.println("What name would you like to put this account under:");
-			String name = in.next();
-			in.nextLine();
 			
 			while((!ans.equals("Add")) && (!ans.equals("Make")) && (!ans.equals("Terminate")))
 			{
@@ -49,6 +46,10 @@ public class BankAccountMain
 			
 			if(ans.equals("Add"))
 			{
+				System.out.println("What name would you like to put this account under:");
+				String name = in.next();
+				in.nextLine();
+				
 				System.out.println("Do you want to add a Savings or Checking Account? Write: 'Savings', or 'Checking'");
 				String saveorcheck = in.next();
 				in.nextLine();
@@ -58,6 +59,7 @@ public class BankAccountMain
 					saveorcheck = in.next();
 					in.nextLine();
 				}
+				
 				
 				System.out.println("Would you like to make an initial deposit('Yes' or 'No'):");
 				String yorn = in.next();
@@ -70,8 +72,9 @@ public class BankAccountMain
 				}
 				if(yorn.equals("Yes"))
 				{
-					System.out.println("What would you like to initially deposit");
+					System.out.println("What would you like to initially deposit: ");
 					//Might need to fix this while loop
+					//This function is messed up
 					while(!isNumeric(in.next()) || in.nextDouble() < 0)
 					{
 						System.out.println("Please enter a valid answer");
@@ -106,10 +109,11 @@ public class BankAccountMain
 			
 			if(ans.equals("Make"))
 			{
-				System.out.println("What type of transaction would you like to make?: ");
+				System.out.println("What type of transaction would you like to make?(Options: 'Deposit', 'Withdraw', 'Transfer', 'Get Account Number'): ");
 				String trans = in.next();
 				in.nextLine();
-				while((!trans.equals("Deposit")) && (!trans.equals("Withdraw"))&& (!trans.equals("Transfer"))&& (!trans.equals("Get")))
+
+				while((!trans.equals("Deposit")) && (!trans.equals("Withdraw")) && (!trans.equals("Transfer")) && (!trans.equals("Get")))
 				{
 					System.out.println("Please enter a valid answer:");
 					trans = in.next();
@@ -119,7 +123,24 @@ public class BankAccountMain
 				{
 				case("Deposit"):
 				{
+					System.out.println("What is your account number?: ");
+					String acc = in.next();
+					in.nextLine();
+					
 					System.out.println("How much would you like to depsoit:");
+					String damt = in.next();
+					in.nextLine();
+					
+					
+					try
+					{
+						//Parsing
+						accounts.get(Integer.parseInt(acc)).deposit(Double.parseDouble(damt));
+					}
+					catch(IllegalArgumentException e)
+					{
+						System.out.println("Transaction not authorized.");
+					}
 				}
 				case("Withdraw"):
 				{
@@ -137,7 +158,10 @@ public class BankAccountMain
 			}
 			
 			if(ans.equals("Terminate"))
+			{
+				System.out.println("Thank you for using the Bank Account Program!");
 				run = false;
+			}
 		}
 
 	}
@@ -153,3 +177,7 @@ public class BankAccountMain
 //Catch Error
 
 //Is Numeric
+
+//int.parseInt
+
+//double
