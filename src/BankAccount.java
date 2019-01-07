@@ -70,4 +70,9 @@ public abstract class BankAccount
 	{
 		return accNum + "\t" + name + "\t$" + balance;
 	}
+	
+	public int getAccNum()
+	{
+		return accNum;
+	}
 }

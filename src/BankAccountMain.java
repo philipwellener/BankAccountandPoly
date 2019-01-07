@@ -143,6 +143,24 @@ public class BankAccountMain
 						accNum = in.next();
 						in.nextLine();
 					}
+					
+					//Checks whether the Account Number exisits
+					boolean accExist = false;
+					BankAccount myAccount = null;
+					while(accExist)
+					{
+					for(BankAccount a : accounts)
+					{
+						if(Integer.parseInt(accNum) == a.getAccNum())
+						{
+							myAccount = a;
+							accExist = true;
+						}
+					}
+					System.out.println("Please enter an Account Number that exists:");
+					accNum = in.next();
+					in.nextLine();
+					}
 				}
 				
 				//Switch case of different transaction types
@@ -195,7 +213,6 @@ public class BankAccountMain
 				}
 				}
 			}
-			
 			
 			//Terminate the program
 			if(ans.equals("Terminate"))
