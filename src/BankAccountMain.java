@@ -130,11 +130,12 @@ public class BankAccountMain
 					in.nextLine();
 				}
 				
+				String accNum = null;
 				if((trans.equals("Deposit")) && (trans.equals("Withdraw")) && (trans.equals("Transfer")))
 				{
 					//Get Account Number
 					System.out.println("What is your account number?: ");
-					String accNum = in.next();
+					accNum = in.next();
 					in.nextLine();
 					
 					while(!isNumeric(accNum))
