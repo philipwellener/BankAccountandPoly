@@ -131,7 +131,7 @@ public class BankAccountMain
 				}
 				
 				String accNum = null;
-				if((trans.equals("Deposit")) && (trans.equals("Withdraw")) && (trans.equals("Transfer")))
+				if((trans.equals("Deposit")) || (trans.equals("Withdraw")) || (trans.equals("Transfer")))
 				{
 					//Get Account Number
 					System.out.println("What is your account number?: ");
@@ -148,7 +148,7 @@ public class BankAccountMain
 					//Checks whether the Account Number exisits
 					boolean accExist = false;
 					BankAccount myAccount = null;
-					while(accExist)
+					while(!accExist)
 					{
 					for(BankAccount a : accounts)
 					{
@@ -158,9 +158,30 @@ public class BankAccountMain
 							accExist = true;
 						}
 					}
-					System.out.println("Please enter an Account Number that exists:");
+					System.out.println("That account number does not exist. Would you like to reenter you account number or get account info? Type 'Number' or 'Info'");
+					String numorinfo = in.next();
+					in.nextLine();
+					
+					while((!numorinfo.equals("Number")) ||  (!numorinfo.equals("Info")))
+					{
+						System.out.println("That is not a valid response. Please type 'Number' or 'Info'");
+						numorinfo = in.next();
+						in.nextLine();
+					}
+					
+					if(numorinfo.equals("Number"))
+					{
+					System.out.println("Please enter an account number that exists:");
 					accNum = in.next();
 					in.nextLine();
+					}
+					
+					else if(numorinfo.equals("Info"))
+					{
+						System.out.println("What is your name: ");
+						String name = in.next();
+						in.nextLine();
+					}
 					}
 				}
 				
