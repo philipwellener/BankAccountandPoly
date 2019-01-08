@@ -147,6 +147,7 @@ public class BankAccountMain
 					
 					//Checks whether the Account Number exisits
 					boolean accExist = false;
+					//Need to make this myAccount not local
 					BankAccount myAccount = null;
 					while(!accExist)
 					{
