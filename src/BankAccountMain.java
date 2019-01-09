@@ -131,6 +131,7 @@ public class BankAccountMain
 				}
 				
 				String accNum = null;
+				BankAccount myAccount = null;
 				if((trans.equals("Deposit")) || (trans.equals("Withdraw")) || (trans.equals("Transfer")))
 				{
 					//Get Account Number
@@ -145,10 +146,8 @@ public class BankAccountMain
 						in.nextLine();
 					}
 					
-					//Checks whether the Account Number exisits
+					//Checks whether the Account Number exists
 					boolean accExist = false;
-					//Need to make this myAccount not local
-					BankAccount myAccount = null;
 					while(!accExist)
 					{
 					for(BankAccount a : accounts)
@@ -163,7 +162,7 @@ public class BankAccountMain
 					String numorinfo = in.next();
 					in.nextLine();
 					
-					while((!numorinfo.equals("Number")) ||  (!numorinfo.equals("Info")))
+					while((!numorinfo.equals("Number")) &&  (!numorinfo.equals("Info")))
 					{
 						System.out.println("That is not a valid response. Please type 'Number' or 'Info'");
 						numorinfo = in.next();
@@ -182,6 +181,7 @@ public class BankAccountMain
 						System.out.println("What is your name: ");
 						String name = in.next();
 						in.nextLine();
+						//Instance of Operator
 					}
 					}
 				}
@@ -208,7 +208,7 @@ public class BankAccountMain
 					{
 						//Parsing
 						//Need to fix finding account
-						accounts.get(Integer.parseInt(accNum)).deposit(Double.parseDouble(damt));
+						myAccount.deposit(Double.parseDouble(damt));
 					}
 					catch(IllegalArgumentException e)
 					{
@@ -220,13 +220,58 @@ public class BankAccountMain
 				//Withdraw case
 				case("Withdraw"):
 				{
+					System.out.println("How much would you like to withdraw:");
+					String wamt = in.next();
+					in.nextLine();
 					
+					while(!isNumeric(wamt))
+					{
+						System.out.println("Please enter a valid answer: ");
+						wamt = in.next();
+						in.nextLine();
+					}
+					
+					try
+					{
+						//Parsing
+						//Need to fix finding account
+						myAccount.withdraw(Double.parseDouble(wamt));
+					}
+					catch(IllegalArgumentException e)
+					{
+						System.out.println("Transaction not authorized.");
+					}
+					break;
 				}
 				
 				//Transfer case
+				//Check if isNumeric
+				//Must transfer to same persons account
+				//Either make sure names are right
+				//Or use try catch
 				case("Transfer"):
 				{
-					
+					System.out.println("What account number would you like to transfer money to: ");
+					String otherAccNum = in.next();
+					in.nextLine();
+					BankAccount otherAccount = null;
+					for(BankAccount a : accounts)
+					{
+						if(Integer.parseInt(otherAccNum) == a.getAccNum())
+						{
+							otherAccount = a;
+						}
+					}
+					if(otherAccount == null)
+					{
+						System.out.println("This is not a valid account number");
+					}
+					else
+					{
+						System.out.println("How much would you like to transfer");
+						String tamt = in.next();
+						in.nextLine();
+					}
 				}
 				
 				//Account case
