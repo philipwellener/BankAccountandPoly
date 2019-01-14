@@ -108,7 +108,7 @@ public class BankAccountMain
 					{
 						accounts.add(new SavingsAccount(name, RATE, MIN_BAL, MIN_BAL_FEE));
 					}
-					if(saveorcheck.equals("Checking"))
+					else if(saveorcheck.equals("Checking"))
 					{
 						accounts.add(new CheckingAccount(name, OVER_DRAFT_FEE, TRANSACTION_FEE, FREE_TRANSACTIONS));
 					}
@@ -117,13 +117,14 @@ public class BankAccountMain
 			}
 			
 			//Make a Transaction
+			BankAccount myAccount = null;
 			if(ans.equals("Make"))
 			{
-				System.out.println("What type of transaction would you like to make?(Options: 'Deposit', 'Withdraw', 'Transfer', 'Account'): ");
+				System.out.println("What type of transaction would you like to make?(Options: 'Deposit', 'Withdraw', 'Transfer', 'Information'): ");
 				String trans = in.next();
 				in.nextLine();
 
-				while((!trans.equals("Deposit")) && (!trans.equals("Withdraw")) && (!trans.equals("Transfer")) && (!trans.equals("Account")))
+				while((!trans.equals("Deposit")) && (!trans.equals("Withdraw")) && (!trans.equals("Transfer")) && (!trans.equals("Information")))
 				{
 					System.out.println("Please enter a valid answer:");
 					trans = in.next();
@@ -131,7 +132,7 @@ public class BankAccountMain
 				}
 				
 				String accNum = null;
-				BankAccount myAccount = null;
+				//BankAccount myAccount = null;
 				if((trans.equals("Deposit")) || (trans.equals("Withdraw")) || (trans.equals("Transfer")))
 				{
 					//Get Account Number
@@ -147,9 +148,11 @@ public class BankAccountMain
 					}
 					
 					//Checks whether the Account Number exists
+
 					boolean accExist = false;
 					while(!accExist)
 					{
+					String numorinfo = null;
 					for(BankAccount a : accounts)
 					{
 						if(Integer.parseInt(accNum) == a.getAccNum())
@@ -158,13 +161,14 @@ public class BankAccountMain
 							accExist = true;
 						}
 					}
-					System.out.println("That account number does not exist. Would you like to reenter you account number or get account info? Type 'Number' or 'Info'");
-					String numorinfo = in.next();
+					//Logic error
+					System.out.println("That account number does not exist. Would you like to reenter you account number or get account info? Type 'Number' or 'Information'");
+					numorinfo = in.next();
 					in.nextLine();
 					
-					while((!numorinfo.equals("Number")) &&  (!numorinfo.equals("Info")))
+					while((!numorinfo.equals("Number")) &&  (!numorinfo.equals("Information")))
 					{
-						System.out.println("That is not a valid response. Please type 'Number' or 'Info'");
+						System.out.println("That is not a valid response. Please type 'Number' or 'Information'");
 						numorinfo = in.next();
 						in.nextLine();
 					}
@@ -176,7 +180,7 @@ public class BankAccountMain
 					in.nextLine();
 					}
 					
-					else if(numorinfo.equals("Info"))
+					else if(numorinfo.equals("Information"))
 					{
 						ArrayList<BankAccount> _myAccount = new ArrayList<BankAccount>();
 						System.out.println("What is your name?: ");
@@ -198,6 +202,10 @@ public class BankAccountMain
 								if(a instanceof CheckingAccount)
 									System.out.println("Checking Account:\n" + a.toString());
 							}
+						}
+						else
+						{
+							System.out.println("There are no acccount(s) under that name.");
 						}
 					}
 					}
@@ -279,11 +287,11 @@ public class BankAccountMain
 					}
 					if(otherAccount == null)
 					{
-						System.out.println("This is not a valid account number");
+						System.out.println("This is not a valid account number.");
 					}
 					else
 					{
-						System.out.println("How much would you like to transfer");
+						System.out.println("How much would you like to transfer: ");
 						String tamt = in.next();
 						in.nextLine();
 						try
@@ -299,7 +307,7 @@ public class BankAccountMain
 				}
 				
 				//Account case
-				case("Account"):
+				case("Information"):
 				{
 					ArrayList<BankAccount> _myAccount = new ArrayList<BankAccount>();
 					System.out.println("What is your name?: ");
@@ -322,6 +330,10 @@ public class BankAccountMain
 								System.out.println("Checking Account:\n" + a.toString());
 						}
 					}
+					else
+					{
+						System.out.println("There are no acccount(s) under that name.");
+					}
 					
 				}
 				}
@@ -339,18 +351,5 @@ public class BankAccountMain
 
 }
 
-//Switchcase
-//Switch(transcaction)
-//case(withdraw)
-//case(deposit)
-
-//Try Method
-//Catch Error
-
-//Is Numeric
-
-//int.parseInt
-
-//double
-
-//Instance Of
+///Errors  - Account Number error
+///This account number does not exist

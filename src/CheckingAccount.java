@@ -13,6 +13,15 @@ public class CheckingAccount extends BankAccount
 	
 	private int numTransactions = 0;
 	
+	/**
+	 * 
+	 * @param n = name
+	 * @param b = balance
+	 * @param odf = over draft fee
+	 * @param tf = transaction fee
+	 * @param freeTrans = free transaction
+	 * constructor with initial balance
+	 */
 	public CheckingAccount(String n, double b, double odf, double tf, int freeTrans)
 	{
 		super(n, b);
@@ -21,6 +30,14 @@ public class CheckingAccount extends BankAccount
 		FREE_TRANS = freeTrans;
 	}
 	
+	/**
+	 * 
+	 * @param n = name
+	 * @param odf = over draft fee
+	 * @param tf = transaction fee
+	 * @param freeTrans = free transaction
+	 * constructor without initial balance
+	 */
 	CheckingAccount(String n, double odf, double tf, int freeTrans)
 	{
 		super(n);
@@ -29,6 +46,11 @@ public class CheckingAccount extends BankAccount
 		FREE_TRANS = freeTrans;
 	}
 	
+	/**
+	 * @param amt = amount
+	 * deposits amount
+	 * void
+	 */
 	public void deposit(double amt)
 	{
 		if(amt <= 0)
@@ -39,11 +61,16 @@ public class CheckingAccount extends BankAccount
 		super.deposit(amt);
 	}
 	
+	/**
+	 * @param amt = amount
+	 * withdraws amount
+	 * void
+	 */
 	public void withdraw(double amt)
 	{
 		if(getBalance() < 0 || amt<=0)
 			throw new IllegalArgumentException();
-		if(getBalance() >0)
+		else if(getBalance() >= 0)
 		{
 			super.withdraw(amt);
 			if(numTransactions >= FREE_TRANS)
@@ -54,6 +81,12 @@ public class CheckingAccount extends BankAccount
 		}
 	}
 	
+	/**
+	 * @param other = other account
+	 * @param amt = amount
+	 * transfers amount to other account
+	 * void
+	 */
 	public void transfer(BankAccount other, double amt)
 	{
 		if ((other.getName()).equals(getName()))
@@ -68,6 +101,10 @@ public class CheckingAccount extends BankAccount
 		throw new IllegalArgumentException();
 	}
 	
+	/**
+	 * resets number of transactions
+	 * void
+	 */
 	public void endOfMonthUpdate()
 	{
 		numTransactions = 0;
