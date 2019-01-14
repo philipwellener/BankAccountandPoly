@@ -148,11 +148,14 @@ public class BankAccountMain
 					}
 					
 					//Checks whether the Account Number exists
-
 					boolean accExist = false;
 					while(!accExist)
 					{
 					String numorinfo = null;
+					
+					//Ends loop if account exists
+					if(!accExist)
+					{
 					for(BankAccount a : accounts)
 					{
 						if(Integer.parseInt(accNum) == a.getAccNum())
@@ -161,7 +164,10 @@ public class BankAccountMain
 							accExist = true;
 						}
 					}
-					//Logic error
+					}
+					//Re-prompts if account does not exists
+					if(!accExist)
+					{
 					System.out.println("That account number does not exist. Would you like to reenter you account number or get account info? Type 'Number' or 'Information'");
 					numorinfo = in.next();
 					in.nextLine();
@@ -198,15 +204,16 @@ public class BankAccountMain
 							for(BankAccount a : _myAccount)
 							{
 								if(a instanceof SavingsAccount)
-									System.out.println("Savings Account:\n" + a.toString());
+									System.out.println("Savings Account:\n" + a.toString() + "\n");
 								if(a instanceof CheckingAccount)
-									System.out.println("Checking Account:\n" + a.toString());
+									System.out.println("Checking Account:\n" + a.toString() + "\n");
 							}
 						}
 						else
 						{
-							System.out.println("There are no acccount(s) under that name.");
+							System.out.println("There are no acccount(s) under that name.\n");
 						}
+					}
 					}
 					}
 				}
@@ -325,14 +332,14 @@ public class BankAccountMain
 						for(BankAccount a : _myAccount)
 						{
 							if(a instanceof SavingsAccount)
-								System.out.println("Savings Account:\n" + a.toString());
+								System.out.println("Savings Account:\n" + a.toString() + "\n");
 							if(a instanceof CheckingAccount)
-								System.out.println("Checking Account:\n" + a.toString());
+								System.out.println("Checking Account:\n" + a.toString() + "\n");
 						}
 					}
 					else
 					{
-						System.out.println("There are no acccount(s) under that name.");
+						System.out.println("There are no acccount(s) under that name.\n");
 					}
 					
 				}
@@ -342,7 +349,7 @@ public class BankAccountMain
 			//Terminate the program
 			if(ans.equals("Terminate"))
 			{
-				System.out.println("Thank you for using the Bank Account Program!");
+				System.out.println("\nThank you for using the Bank Account Program!");
 				run = false;
 			}
 		}
