@@ -4,7 +4,6 @@ import java.util.Scanner;
 public class BankAccountMain 
 {
 	
-	//Checks whether the String is numeric
 	/**
 	 * Checks whether the string is number
 	 * @param str = number
