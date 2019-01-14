@@ -81,9 +81,9 @@ public class BankAccountMain
 					String intAmt = in.next();
 					in.nextLine();
 					
-					while(!isNumeric(intAmt))
+					while(!isNumeric(intAmt) || (Double.parseDouble(intAmt)<0))
 					{
-						System.out.println("Please enter a valid answer");
+						System.out.println("Please enter a valid answer: ");
 						intAmt = in.next();
 						in.nextLine();
 					}
@@ -178,10 +178,27 @@ public class BankAccountMain
 					
 					else if(numorinfo.equals("Info"))
 					{
-						System.out.println("What is your name: ");
-						String name = in.next();
-						in.nextLine();
-						//Instance of Operator
+						ArrayList<BankAccount> _myAccount = new ArrayList<BankAccount>();
+						System.out.println("What is your name?: ");
+						String name = in.nextLine();
+						for(BankAccount a : accounts)
+						{
+							if(name.equals(a.getName()))
+							{
+								_myAccount.add(a);
+							}
+						}
+						
+						if(_myAccount.size()>0)
+						{
+							for(BankAccount a : _myAccount)
+							{
+								if(a instanceof SavingsAccount)
+									System.out.println("Savings Account:\n" + a.toString());
+								if(a instanceof CheckingAccount)
+									System.out.println("Checking Account:\n" + a.toString());
+							}
+						}
 					}
 					}
 				}
@@ -206,8 +223,6 @@ public class BankAccountMain
 					
 					try
 					{
-						//Parsing
-						//Need to fix finding account
 						myAccount.deposit(Double.parseDouble(damt));
 					}
 					catch(IllegalArgumentException e)
@@ -233,8 +248,6 @@ public class BankAccountMain
 					
 					try
 					{
-						//Parsing
-						//Need to fix finding account
 						myAccount.withdraw(Double.parseDouble(wamt));
 					}
 					catch(IllegalArgumentException e)
@@ -245,15 +258,17 @@ public class BankAccountMain
 				}
 				
 				//Transfer case
-				//Check if isNumeric
-				//Must transfer to same persons account
-				//Either make sure names are right
-				//Or use try catch
 				case("Transfer"):
 				{
 					System.out.println("What account number would you like to transfer money to: ");
 					String otherAccNum = in.next();
 					in.nextLine();
+					while(!isNumeric(otherAccNum))
+					{
+						System.out.println("Please enter a valid answer: ");
+						otherAccNum = in.next();
+						in.nextLine();
+					}
 					BankAccount otherAccount = null;
 					for(BankAccount a : accounts)
 					{
@@ -271,12 +286,42 @@ public class BankAccountMain
 						System.out.println("How much would you like to transfer");
 						String tamt = in.next();
 						in.nextLine();
+						try
+						{
+							myAccount.transfer(otherAccount, Double.parseDouble(tamt));
+						}
+						catch(IllegalArgumentException e)
+						{
+							System.out.println("Transaction not authorized.");
+						}
+						break;
 					}
 				}
 				
 				//Account case
 				case("Account"):
 				{
+					ArrayList<BankAccount> _myAccount = new ArrayList<BankAccount>();
+					System.out.println("What is your name?: ");
+					String name = in.nextLine();
+					for(BankAccount a : accounts)
+					{
+						if(name.equals(a.getName()))
+						{
+							_myAccount.add(a);
+						}
+					}
+					
+					if(_myAccount.size()>0)
+					{
+						for(BankAccount a : _myAccount)
+						{
+							if(a instanceof SavingsAccount)
+								System.out.println("Savings Account:\n" + a.toString());
+							if(a instanceof CheckingAccount)
+								System.out.println("Checking Account:\n" + a.toString());
+						}
+					}
 					
 				}
 				}
