@@ -5,6 +5,11 @@ public class BankAccountMain
 {
 	
 	//Checks whether the String is numeric
+	/**
+	 * Checks whether the string is number
+	 * @param str = number
+	 * @return true if string is numeric, else false
+	 */
 	private static boolean isNumeric(String str)
 	{
 	try
@@ -132,7 +137,7 @@ public class BankAccountMain
 				}
 				
 				String accNum = null;
-				//BankAccount myAccount = null;
+				boolean restart = false;
 				if((trans.equals("Deposit")) || (trans.equals("Withdraw")) || (trans.equals("Transfer")))
 				{
 					//Get Account Number
@@ -165,16 +170,18 @@ public class BankAccountMain
 						}
 					}
 					}
+
+					
 					//Re-prompts if account does not exists
 					if(!accExist)
 					{
-					System.out.println("That account number does not exist. Would you like to reenter you account number or get account info? Type 'Number' or 'Information'");
+					System.out.println("That account number or name is not associated with an account. Would you like to reenter you account number, get your account info, or restart the program? Type 'Number' or 'Information' or 'Restart'");
 					numorinfo = in.next();
 					in.nextLine();
 					
-					while((!numorinfo.equals("Number")) &&  (!numorinfo.equals("Information")))
+					while((!numorinfo.equals("Number")) &&  (!numorinfo.equals("Information")) && (!numorinfo.equals("Restart")))
 					{
-						System.out.println("That is not a valid response. Please type 'Number' or 'Information'");
+						System.out.println("That is not a valid response. Please type 'Number' or 'Information' or 'Restart'");
 						numorinfo = in.next();
 						in.nextLine();
 					}
@@ -209,16 +216,20 @@ public class BankAccountMain
 									System.out.println("Checking Account:\n" + a.toString() + "\n");
 							}
 						}
-						else
-						{
-							System.out.println("There are no acccount(s) under that name.\n");
-						}
+					}
+					else if(numorinfo.equals("Restart"))
+					{
+						restart = true;
+						accExist = true;
 					}
 					}
 					}
 				}
 				
-				//Switch case of different transaction types
+				if(restart)
+					continue;
+				
+				//Switch case to handle different transaction types
 				switch(trans) 
 				{
 				
@@ -313,7 +324,7 @@ public class BankAccountMain
 					}
 				}
 				
-				//Account case
+				//Information case
 				case("Information"):
 				{
 					ArrayList<BankAccount> _myAccount = new ArrayList<BankAccount>();
@@ -357,6 +368,3 @@ public class BankAccountMain
 	}
 
 }
-
-///Errors  - Account Number error
-///This account number does not exist
