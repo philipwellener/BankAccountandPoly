@@ -55,8 +55,7 @@ public class BankAccountMain
 			if(ans.equals("Add"))
 			{
 				System.out.println("What name would you like to put this account under:");
-				String name = in.next();
-				in.nextLine();
+				String name = in.nextLine();
 				
 				System.out.println("Do you want to add a Savings or Checking Account? Write: 'Savings', or 'Checking'");
 				String saveorcheck = in.next();
